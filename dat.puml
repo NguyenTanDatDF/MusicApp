@@ -1,0 +1,792 @@
+@startuml
+class hcmute.edu.vn.spotify.Model.User {
+- String key
+- String userId
+- String username
+- String password
+- String name
+- String email
+- boolean isAdmin
+- boolean isPremium
++ Map<String,Object> toMap()
++ String getKey()
++ void setKey(String)
++ String getUserId()
++ void setUserId(String)
++ String getUsername()
++ void setUsername(String)
++ String getPassword()
++ void setPassword(String)
++ String getName()
++ void setName(String)
++ String getEmail()
++ void setEmail(String)
++ boolean isAdmin()
++ void setAdmin(boolean)
++ boolean isPremium()
++ void setPremium(boolean)
++ Prototyte createClone()
+}
+class hcmute.edu.vn.spotify.Model.MusicPlaylistTrackBuilder {
+- String trackId
+- String musicPlaylistId
+- String tGenre
+- String artistId
++ String getTrackId()
++ String getMusicPlaylistId()
++ String gettGenre()
++ String getArtistId()
+}
+class hcmute.edu.vn.spotify.Model.MusicPlaylistTrackBuilder.Builder {
+- String trackId
+- String musicPlaylistId
+- String tGenre
+- String artistId
++ MusicPlaylistTrackBuilder.Builder trackId(String)
++ MusicPlaylistTrackBuilder.Builder musicPlaylistId(String)
++ MusicPlaylistTrackBuilder.Builder artistId(String)
++ MusicPlaylistTrackBuilder.Builder tGenre(String)
++ MusicPlaylistTrackBuilder build()
+}
+class hcmute.edu.vn.spotify.Model.Favorite {
+~ String uid
+~ String tid
++ String getUid()
++ void setUid(String)
++ String getTid()
++ void setTid(String)
++ Prototyte createClone()
+}
+class hcmute.edu.vn.spotify.Activity.MusicPlaylistTrackActivity {
+~ com.google.android.material.appbar.CollapsingToolbarLayout musicPlaylistName
+~ ImageView musicPlaylistImage
+- RecyclerView rcvTrack
+- TrackAdapter trackAdapter
+~ DAOMusicPlaylistTrack daoMusicPlaylistTrack
+# void onCreate(Bundle)
+- List<Track> getListTrack(String)
+- List<MusicPlaylistTrack> getListMusicPlaylistTrack(String)
+- void updateTrack(String)
++ void setData(String)
+}
+class hcmute.edu.vn.spotify.Database.DAOAlbum {
++ DatabaseReference databaseReference
++ FirebaseDatabase db
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Model.Playlist {
++ String Key
++ String pUrl
++ String uID
++ String pName
+- String uName
+- String playlistId
++ String getKey()
++ void setKey(String)
++ String getpUrl()
++ void setpUrl(String)
++ String getuID()
++ void setuID(String)
++ String getpName()
++ void setpName(String)
++ String getuName()
++ void setuName(String)
++ String getPlaylistId()
++ void setPlaylistId(String)
+}
+class hcmute.edu.vn.spotify.Database.DAOUser {
++ DatabaseReference databaseReference
++ FirebaseDatabase db
++ Task<Void> addNewUser(User)
++ Task<Void> updateUser(User)
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Adapter.ListAdapter {
+- Context pContext
+- List<MusicPlaylist> pMusicPlaylist
++ void setData(List<MusicPlaylist>)
++ ListViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ListViewHolder,int)
++ int getItemCount()
+}
+class hcmute.edu.vn.spotify.Adapter.ListAdapter.ListViewHolder {
+- ImageView listImage
+- TextView listName
+}
+class hcmute.edu.vn.spotify.Activity.WelcomeActivity {
+~ Button signup_btn
+~ Button signin_btn
+# void onCreate(Bundle)
+}
+class hcmute.edu.vn.spotify.Database.DAOTrack {
++ DatabaseReference databaseReference
+~ FirebaseDatabase db
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Adapter.TrackAdapter {
+- Context pContext
+- List<Track> pTrack
+- List<Track> pTrackOld
+~ DAOPlayListTrack daoPlayListTrack
+~ List<PlaylistTrack> list
+- int limit
++ void setData(List<Track>)
++ TrackViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(TrackViewHolder,int)
++ void PlayMedia(Track)
++ int getItemCount()
+- List<PlaylistTrack> getPlaylistTrack()
++ Filter getFilter()
+}
+class hcmute.edu.vn.spotify.Adapter.TrackAdapter.TrackViewHolder {
+- ImageView tImage
+- TextView tName
+- TextView tListens
+- ImageView tCancel
+- ConstraintLayout trackLayout
+}
+class hcmute.edu.vn.spotify.Activity.SignupActivity {
+~ DAOUser daoUser
+# void onCreate(Bundle)
++ String randomId()
+}
+class hcmute.edu.vn.spotify.Database.DAOGerne {
++ DatabaseReference databaseReference
+~ FirebaseDatabase db
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Database.DAOPlaylist {
++ DatabaseReference databaseReference
+~ FirebaseDatabase db
++ Task<Void> addNewPlaylist(Playlist)
++ Task<Void> removePlaylist(String)
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Activity.MainActivity {
+~ MeowBottomNavigation bottomNavigation
++ {static} PlayerView pvMain
++ {static} ExoPlayer player
++ {static} List<Track> playlist
++ {static} int currentIndex
++ {static} ImageView img_track
++ {static} TextView name_track
++ {static} TextView nameArtist_track
++ {static} boolean isHeartTrack
++ {static} Track track
++ {static} String typePlaying
++ {static} boolean logout
++ {static} List<Track> userTrackList
+~ List<PlaylistTrack> allPlayListTrack
+# void onStart()
+# void onCreate(Bundle)
++ String randomId()
+- void replace(Fragment)
++ void StartService()
++ void StopService()
++ void PlayMedia()
+- int getDrawableId(ImageView)
+- List<Track> getUserListTrack(String,String,ImageView,Track)
+# void onResume()
+- List<Playlist> getListPlaylist(String)
+- List<PlaylistTrack> getPlaylistTrack()
+}
+class hcmute.edu.vn.spotify.Database.DAOArtist {
++ DatabaseReference databaseReference
+~ FirebaseDatabase db
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Database.DAOPlayListTrack {
++ DatabaseReference databaseReference
+~ FirebaseDatabase db
++ Task<Void> addNewPlaylistTrack(PlaylistTrack)
++ Task<Void> removePlaylistTrack(String)
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Model.Entity {
+- {static} Entity self
++ {static} Entity get()
++ {static} Entity set()
+}
+class hcmute.edu.vn.spotify.Activity.SettingActivity {
+~ LinearLayout rules
+~ LinearLayout support
+~ LinearLayout thirdside
+~ LinearLayout terms
+~ ConstraintLayout userCl
+~ ImageView backIv
+~ LinearLayout premiumLl
+~ LinearLayout logoutLl
+# void onCreate(Bundle)
+- void gotoUrl(String)
+}
+class hcmute.edu.vn.spotify.Service.StringProcesser {
+~ String content
+~ char c
++ String[] splitStringByChar(String)
+}
+class hcmute.edu.vn.spotify.Model.Track {
+~ String key
+- String name
+- String source
+- int tListens
+- String trackId
+- String tLyric
+- String tGenre
+- String image
+- Date tReleaseDate
+- Album tAlbum
+- Artist tArtist
+- String artistId
+- String albumId
+- String artistName
++ Map<String,Object> toMap()
++ String getImage()
++ void setImage(String)
++ String getName()
++ void setName(String)
++ int gettListens()
++ void settListens(int)
++ String gettLyric()
++ void settLyric(String)
++ String gettGenre()
++ void settGenre(String)
++ Date gettReleaseDate()
++ void settReleaseDate(Date)
++ String getKey()
++ void setKey(String)
++ Album gettAlbum()
++ void settAlbum(Album)
++ Artist gettArtist()
++ void settArtist(Artist)
++ String getAlbumId()
++ void setAlbumId(String)
++ String getSource()
++ void setSource(String)
++ String getArtistId()
++ void setArtistId(String)
++ String getArtistName()
++ String toString()
++ void setArtistName(String)
++ Prototyte createClone()
++ String getTrackId()
++ void setTrackId(String)
+}
+class hcmute.edu.vn.spotify.Model.MusicPlaylist {
+~ String key
+- String lImageUrl
+- String lName
+- String musicPlaylistId
++ String getKey()
++ void setKey(String)
++ String getlImageUrl()
++ void setlImageUrl(String)
++ String getlName()
++ void setlName(String)
++ String getMusicPlaylistId()
++ void setMusicPlaylistId(String)
+}
+class hcmute.edu.vn.spotify.Activity.ArtistMusicActivity {
+- RecyclerView rcvAlbum
+- RecyclerView rcvTrack
+- AlbumAdapter albumAdapter
+- TrackAdapter trackAdapter
+~ com.google.android.material.appbar.CollapsingToolbarLayout artistName
+~ ImageView artistImage
+~ {static} String Name
+~ FloatingActionButton btn_playlist
+# void onCreate(Bundle)
+- List<Album> getListAlbum(String)
+- List<Track> getListTrack(String)
++ void setData(String)
+# void onResume()
++ void playListTrack(List<Track>)
++ void PlayListMedia(List<Track>)
+}
+class hcmute.edu.vn.spotify.Activity.TopicMusicActivity {
+- RecyclerView rcvTrack
+- TrackAdapter trackAdapter
+~ CollapsingToolbarLayout topicTitle
+~ ImageView topicImage
+~ {static} String topicName
+~ FloatingActionButton btn_playlist
+~ List<Track> listTrack
+# void onCreate(Bundle)
++ void playListTrack(List<Track>)
+# void onResume()
++ void PlayListMedia(List<Track>)
++ void setData(Topic)
+- List<Track> getListTrack(String)
+}
+class hcmute.edu.vn.spotify.Model.Topic {
++ String Key
+- int tColor
++ String name
++ String url
++ String getKey()
++ void setKey(String)
++ int gettColor()
++ void settColor(int)
++ String getName()
++ void setName(String)
++ String getUrl()
++ void setUrl(String)
+}
+interface hcmute.edu.vn.spotify.Interface.Prototyte {
++ Prototyte createClone()
+}
+class hcmute.edu.vn.spotify.Service.OnSwipeTouchListener {
+- GestureDetector gestureDetector
++ boolean onTouch(View,MotionEvent)
++ void onSwipeRight()
++ void onSwipeLeft()
++ void onSwipeTop()
++ void onSwipeBottom()
+}
+class hcmute.edu.vn.spotify.Service.OnSwipeTouchListener.GestureListener {
+- {static} int SWIPE_THRESHOLD
+- {static} int SWIPE_VELOCITY_THRESHOLD
++ boolean onDown(MotionEvent)
++ boolean onFling(MotionEvent,MotionEvent,float,float)
+}
+class hcmute.edu.vn.spotify.Service.FileProcesser {
+~ Context context
++ String getDevicePath(Context)
++ File createFile(String)
++ void writeFile(File,String[])
+}
+class hcmute.edu.vn.spotify.Activity.EditUserActivity {
+~ ImageView cancelIv
+~ TextView saveTv
+~ EditText username_et
+~ DAOUser daoUser
+# void onCreate(Bundle)
+}
+class hcmute.edu.vn.spotify.Activity.PlaylistMusicActivity {
++ {static} Playlist definedPlaylist
+- com.google.android.material.appbar.CollapsingToolbarLayout playlistName
+- ImageView playlistImage
+- RecyclerView rcvTrack
+- TrackAdapter trackAdapter
+- RecyclerView rcvSuggestTrack
+- SearchView searchView
+- Button deleteButton
+- SuggestTrackAdapter suggestTrackAdapter
+- FloatingActionButton btn_playlist
+~ {static} String idUser
+~ {static} String idPlaylist
+~ DAOPlayListTrack daoPlayListTrack
+~ DAOPlaylist daoPlaylist
+# void onCreate(Bundle)
+- List<Track> getUserListTrack(String,String)
+- List<PlaylistTrack> getPlaylistTrack()
+- List<Track> getListTrack()
++ void setData(String,String)
++ void setDataSuggest()
++ void playListTrack(List<Track>)
+# void onResume()
++ void PlayListMedia(List<Track>)
+}
+class hcmute.edu.vn.spotify.Fragment.LibraryFragment {
+~ RecyclerView rcvPlaylist
+~ RecyclerView rcvArtist
+~ CircleImageView avatarIv
+~ ImageView addPlaylistIv
+~ DAOPlaylist daoPlaylist
+- PlaylistVerticalAdapter playlistVerticalAdapter
+- ArtistAdapter artistAdapter
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- List<Playlist> getListPlaylist(String)
+- List<Artist> getListArtist()
+}
+class hcmute.edu.vn.spotify.Model.MusicPlaylistTrack {
+~ String key
+- String trackId
+- String musicPlaylistId
+- String tGenre
+- String artistId
++ String getKey()
++ void setKey(String)
++ String getTrackId()
++ void setTrackId(String)
++ String getMusicPlaylistId()
++ void setMusicPlaylistId(String)
++ String gettGenre()
++ void settGenre(String)
++ String getArtistId()
++ void setArtistId(String)
+}
+class hcmute.edu.vn.spotify.Service.ThreadSafeLazyUserSingleton {
++ User user
+- {static} ThreadSafeLazyUserSingleton instance
++ {static} ThreadSafeLazyUserSingleton getInstance(User)
+}
+class hcmute.edu.vn.spotify.Service.LyricFacade {
+~ FileProcesser fileProcesser
+~ StringProcesser stringProcesser
++ File createFileObjectWithLyric(Context,String)
+}
+class hcmute.edu.vn.spotify.Adapter.ArtistAdapter {
+- Context pContext
+- List<Artist> pArtist
+- int limit
++ void setData(List<Artist>)
++ ArtistViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ArtistViewHolder,int)
++ int getItemCount()
+}
+class hcmute.edu.vn.spotify.Adapter.ArtistAdapter.ArtistViewHolder {
+- ImageView artistImage
+- TextView artistName
+}
+class hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter {
+- Context pContext
+- List<Track> pTrack
+- List<Track> pTrackOld
+~ DAOPlayListTrack daoPlayListTrack
+~ List<PlaylistTrack> list
+- int limit
++ void setData(List<Track>)
++ TrackViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(TrackViewHolder,int)
++ int getItemCount()
+- List<PlaylistTrack> getPlaylistTrack()
++ Filter getFilter()
++ String randomId()
+}
+class hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter.TrackViewHolder {
+- ImageView tImage
+- TextView tName
+- TextView tListens
+- ImageView tAdd
+}
+class hcmute.edu.vn.spotify.Activity.NewPlaylistActivity {
+~ EditText newPlaylist_et
+~ TextView cancel_tv
+~ TextView create_tv
+~ DAOPlaylist daoPlaylist
+# void onCreate(Bundle)
++ String randomId()
+}
+class hcmute.edu.vn.spotify.Service.MyService {
+- {static} int ACTION_PAUSE
+- {static} int ACTION_RESUME
+- {static} int ACTION_CLEAR
+- {static} int ACTION_NEXT
+- {static} int ACTION_PREVIOUS
+~ RemoteViews remoteViews
++ IBinder onBind(Intent)
++ void onCreate()
++ int onStartCommand(Intent,int,int)
+- void handleActionMusic(int)
++ void pauseMusic()
++ void playMusic()
++ void nextMusic()
++ void previousMusic()
++ void clearMusic()
++ {static} Bitmap getBitmapFromURL(String)
++ void sendNotifycation()
+- PendingIntent getPedingIntent(Context,int)
++ void onDestroy()
+}
+class hcmute.edu.vn.spotify.Activity.UserActivity {
+~ Button editUserBt
+~ ImageView backIv
+- RecyclerView rcvPlaylist
+- PlaylistAdapter playlistAdapter
+# void onCreate(Bundle)
+- List<Playlist> getListPlaylist()
+}
+class hcmute.edu.vn.spotify.Activity.NotificationsActivity {
+- RecyclerView rcvAlbum
+- RecyclerView rcvTrack
+- AlbumAdapter albumAdapter
+- TrackAdapter trackAdapter
+# void onCreate(Bundle)
+- List<Album> getListAlbum()
+- List<Track> getListTrack()
+}
+class hcmute.edu.vn.spotify.Database.DAOMusicPlaylist {
++ DatabaseReference databaseReference
++ FirebaseDatabase db
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Activity.AlbumMusicActivity {
+- RecyclerView rcvAlbum
+- RecyclerView rcvTrack
+- AlbumAdapter albumAdapter
+- TrackAdapter trackAdapter
+~ com.google.android.material.appbar.CollapsingToolbarLayout albumName
+~ ImageView albumImage
+~ FloatingActionButton btn_playlist
+~ {static} String AlbumName
+# void onCreate(Bundle)
+- List<Album> getListAlbum(String,String)
+- List<Track> getListTrack(String)
++ void playListTrack(List<Track>)
+# void onResume()
++ void PlayListMedia(List<Track>)
++ void setAlbumData(Album)
++ void setTrackData(Album)
+}
+class hcmute.edu.vn.spotify.Activity.SearchActivity {
+- RecyclerView rcvArtist
+- ArtistAdapter artistAdapter
+- TrackAdapter trackAdapter
+- SearchView searchView
+- ImageView backIv
+# void onCreate(Bundle)
+- List<Artist> getListArtist()
+- List<Track> getListTrack()
+- void setTrackData()
+- void setAlbumData()
+}
+class hcmute.edu.vn.spotify.Model.PlaylistTrack {
+- String key
+- String trackId
+- String playlistId
++ String getKey()
++ void setKey(String)
++ String getTrackId()
++ void setTrackId(String)
++ String getPlaylistId()
++ void setPlaylistId(String)
+}
+class hcmute.edu.vn.spotify.Fragment.HomeFragment {
+~ TextView welcome
+~ TextView album1
+~ TextView album2
+~ TextView album3
+~ ImageView settingIv
+~ ImageView notificationIv
+~ RecyclerView rcvUser
+- AlbumAdapter userAdapter
+~ RecyclerView rcvPlaylist
+- PlaylistVerticalAdapter playlistAdapter
+~ RecyclerView rcvArtist
+- ArtistAdapter artistAdapter
+~ RecyclerView rcvListMusic
+- ListAdapter listAdapter
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void setData(View)
+- void setPlaylistData(View)
+- void setArtistData(View)
+- void setMusicPlaylistData(View)
+- List<Album> getListAlbum()
+- List<Artist> getListArtist()
+- List<Playlist> getListPlaylist(String)
+- List<MusicPlaylist> getListMusicPlaylist()
+}
+class hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter {
+- Context pContext
+- List<Playlist> pPlaylist
++ void setData(List<Playlist>)
++ PlaylistVerticalViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(PlaylistVerticalViewHolder,int)
++ int getItemCount()
+}
+class hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter.PlaylistVerticalViewHolder {
+- ImageView playlistImage
+- TextView playlistName
+- TextView playlistCreator
+}
+class hcmute.edu.vn.spotify.Adapter.AlbumAdapter {
+- Context mContext
+- List<Album> albumList
+- int limit
++ void setData(List<Album>)
++ void onBindViewHolder(AlbumAdapter.AlbumViewHolder,int)
++ int getItemCount()
++ AlbumViewHolder onCreateViewHolder(ViewGroup,int)
+}
+class hcmute.edu.vn.spotify.Adapter.AlbumAdapter.AlbumViewHolder {
+- ImageView imgUser
+- TextView tvName
+- TextView tvDescription
+}
+class hcmute.edu.vn.spotify.Model.Artist {
++ String key
++ String imageArtist
++ String nameArtist
+- String idArtist
++ String getImageArtist()
++ void setImageArtist(String)
++ String getNameArtist()
++ void setNameArtist(String)
++ String getIdArtist()
++ void setIdArtist(String)
++ String getKey()
++ void setKey(String)
+}
+class hcmute.edu.vn.spotify.Activity.SigninActivity {
+# void onCreate(Bundle)
+- List<User> getListUser()
+}
+class hcmute.edu.vn.spotify.Activity.CheckPremiumActivity {
+~ ImageView backIv
+# void onCreate(Bundle)
+}
+class hcmute.edu.vn.spotify.Activity.PlayTrackActivity {
+~ Handler handler
+~ Runnable runnable
+~ int delay
+~ LyricView mLyricView
+~ PlayerView pvMain
+~ ImageButton next
+~ ImageButton prvious
+~ ImageView img_track
+~ ImageView back
+~ ImageView repeat
+~ ImageView imgv_heart
+~ TextView name
+~ List<PlaylistTrack> allPlayListTrack
+# void onCreate(Bundle)
+# void onResume()
+- int getDrawableId(ImageView)
++ String randomId()
++ void PlayMedia(PlayerView)
++ void StartService()
+- List<PlaylistTrack> getPlaylistTrack()
+- List<Track> getUserListTrack(String,String,ImageView,Track)
+}
+class hcmute.edu.vn.spotify.Model.Album {
++ String key
+- String name
+- String resourceId
+- String description
+- String artistId
+- String artistName
+- String albumId
++ String getKey()
++ void setKey(String)
++ String getName()
++ void setName(String)
++ String getResourceId()
++ void setResourceId(String)
++ String getDescription()
++ void setDescription(String)
++ String getArtistId()
++ void setArtistId(String)
++ String getArtistName()
++ void setArtistName(String)
++ String getAlbumId()
++ void setAlbumId(String)
+}
+class hcmute.edu.vn.spotify.Service.Receiver {
++ void onReceive(Context,Intent)
+}
+class hcmute.edu.vn.spotify.Database.DAOMusicPlaylistTrack {
++ DatabaseReference databaseReference
++ FirebaseDatabase db
++ Task<Void> addNewMusicPlaylistTrack(MusicPlaylistTrackBuilder)
++ Task<Void> removeMusicPlaylistTrack(String)
++ Query getByKey()
+}
+class hcmute.edu.vn.spotify.Fragment.SearchFragment {
+~ RecyclerView rcvTopic
+~ CardView searchCV
+~ TopicAdapter topicAdapter
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- List<Topic> getListTopic()
++ int getNumber()
+}
+class hcmute.edu.vn.spotify.Service.MyApplication {
++ {static} String CHANEL_ID
++ void onCreate()
+- void createChanelNotification()
+}
+class hcmute.edu.vn.spotify.Adapter.PlaylistAdapter {
+- Context pContext
+- List<Playlist> pPlaylist
++ void setData(List<Playlist>)
++ PlaylistViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(PlaylistViewHolder,int)
++ int getItemCount()
+}
+class hcmute.edu.vn.spotify.Adapter.PlaylistAdapter.PlaylistViewHolder {
+- ImageView playlistImage
+- TextView playlistName
+- TextView playlistCreator
+}
+class hcmute.edu.vn.spotify.Adapter.TopicAdapter {
+- Context pContext
+- List<Topic> pTopic
++ void setData(List<Topic>)
++ TopicViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(TopicViewHolder,int)
++ int getItemCount()
+}
+class hcmute.edu.vn.spotify.Adapter.TopicAdapter.TopicViewHolder {
+- ImageView tColor
+- TextView tTopic
+- ImageView tImage
+}
+
+
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.User
+hcmute.edu.vn.spotify.Interface.Prototyte <|.. hcmute.edu.vn.spotify.Model.User
+hcmute.edu.vn.spotify.Model.MusicPlaylistTrackBuilder +.. hcmute.edu.vn.spotify.Model.MusicPlaylistTrackBuilder.Builder
+hcmute.edu.vn.spotify.Interface.Prototyte <|.. hcmute.edu.vn.spotify.Model.Favorite
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.MusicPlaylistTrackActivity
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.Playlist
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.ListAdapter
+hcmute.edu.vn.spotify.Adapter.ListAdapter +.. hcmute.edu.vn.spotify.Adapter.ListAdapter.ListViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.ListAdapter.ListViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.WelcomeActivity
+android.widget.Filterable <|.. hcmute.edu.vn.spotify.Adapter.TrackAdapter
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.TrackAdapter
+hcmute.edu.vn.spotify.Adapter.TrackAdapter +.. hcmute.edu.vn.spotify.Adapter.TrackAdapter.TrackViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.TrackAdapter.TrackViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.SignupActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.SettingActivity
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.Track
+hcmute.edu.vn.spotify.Interface.Prototyte <|.. hcmute.edu.vn.spotify.Model.Track
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.MusicPlaylist
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.ArtistMusicActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.TopicMusicActivity
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.Topic
+android.view.View.OnTouchListener <|.. hcmute.edu.vn.spotify.Service.OnSwipeTouchListener
+hcmute.edu.vn.spotify.Service.OnSwipeTouchListener +.. hcmute.edu.vn.spotify.Service.OnSwipeTouchListener.GestureListener
+hcmute.edu.vn.spotify.Service.SimpleOnGestureListener <|-- hcmute.edu.vn.spotify.Service.OnSwipeTouchListener.GestureListener
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.EditUserActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.PlaylistMusicActivity
+androidx.fragment.app.Fragment <|-- hcmute.edu.vn.spotify.Fragment.LibraryFragment
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.ArtistAdapter
+hcmute.edu.vn.spotify.Adapter.ArtistAdapter +.. hcmute.edu.vn.spotify.Adapter.ArtistAdapter.ArtistViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.ArtistAdapter.ArtistViewHolder
+android.widget.Filterable <|.. hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter
+hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter +.. hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter.TrackViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.SuggestTrackAdapter.TrackViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.NewPlaylistActivity
+android.app.Service <|-- hcmute.edu.vn.spotify.Service.MyService
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.UserActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.NotificationsActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.AlbumMusicActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.SearchActivity
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.PlaylistTrack
+androidx.fragment.app.Fragment <|-- hcmute.edu.vn.spotify.Fragment.HomeFragment
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter
+hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter +.. hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter.PlaylistVerticalViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.PlaylistVerticalAdapter.PlaylistVerticalViewHolder
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.AlbumAdapter
+hcmute.edu.vn.spotify.Adapter.AlbumAdapter +.. hcmute.edu.vn.spotify.Adapter.AlbumAdapter.AlbumViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.AlbumAdapter.AlbumViewHolder
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.Artist
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.SigninActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.CheckPremiumActivity
+androidx.appcompat.app.AppCompatActivity <|-- hcmute.edu.vn.spotify.Activity.PlayTrackActivity
+java.io.Serializable <|.. hcmute.edu.vn.spotify.Model.Album
+android.content.BroadcastReceiver <|-- hcmute.edu.vn.spotify.Service.Receiver
+androidx.fragment.app.Fragment <|-- hcmute.edu.vn.spotify.Fragment.SearchFragment
+android.app.Application <|-- hcmute.edu.vn.spotify.Service.MyApplication
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.PlaylistAdapter
+hcmute.edu.vn.spotify.Adapter.PlaylistAdapter +.. hcmute.edu.vn.spotify.Adapter.PlaylistAdapter.PlaylistViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.PlaylistAdapter.PlaylistViewHolder
+hcmute.edu.vn.spotify.Adapter.Adapter <|-- hcmute.edu.vn.spotify.Adapter.TopicAdapter
+hcmute.edu.vn.spotify.Adapter.TopicAdapter +.. hcmute.edu.vn.spotify.Adapter.TopicAdapter.TopicViewHolder
+hcmute.edu.vn.spotify.Adapter.ViewHolder <|-- hcmute.edu.vn.spotify.Adapter.TopicAdapter.TopicViewHolder
+@enduml
